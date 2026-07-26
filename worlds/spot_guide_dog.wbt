@@ -7,164 +7,180 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/project
 
 WorldInfo {
   title "Spot Guide Dog"
-  gravity 9.81
   basicTimeStep 16
   contactProperties [
     ContactProperties {
       material1 "spot"
       material2 "arena"
-      coulombFriction [0.5]
+      coulombFriction [
+        0.5
+      ]
     }
   ]
 }
-
 Viewpoint {
-  position 3 -5 3.5
-  orientation 0.35 0.1 0.93 1.4
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position -7.550332863779066e-16 1.8875832159447663e-15 6.800735254367719
 }
-
 TexturedBackground {
 }
-
 TexturedBackgroundLight {
 }
-
 RectangleArena {
   floorSize 8 4
-  wallHeight 0.1
+  contactMaterial "arena"
 }
-
-# Distance-sensor fan orientations below are derived analytically from
-# Spot.proto's middleExtension mount transform (translation 0.027 0
-# 0.1118, rotation 0.577350 -0.577354 -0.577346 2.094389), which is a
-# fixed 120deg axis-permutation rotation. Solving for the local rotation
-# that makes each sensor's sensing axis (+X) point along body-forward
-# with a horizontal yaw offset phi gives: axis (0 1 0), angle
-# (1.5708 + phi). This should still be visually confirmed in Webots
-# (see plan verification step 2) before trusting it for training.
 DEF SPOT_ROBOT Spot {
-  translation 0 0 0
-  rotation 0 0 1 0
+  translation -3.4 0 0.624
   controller "spot_guide_dog_train"
   supervisor TRUE
   middleExtension [
     DistanceSensor {
       translation 0 0 -0.15
       rotation 0 1 0 2.269
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+          }
+          geometry Sphere {
+            radius 0.01
+          }
+        }
+      ]
       name "ds_fan_0"
       lookupTable [
         0 0 0
         1.5 1.5 0.01
       ]
-      children [
-        Shape {
-          appearance PBRAppearance { baseColor 1 1 0 }
-          geometry Sphere { radius 0.01 }
-        }
-      ]
     }
     DistanceSensor {
       translation 0 0 -0.15
-      rotation 0 1 0 1.920
+      rotation 0 1 0 1.92
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+          }
+          geometry Sphere {
+            radius 0.01
+          }
+        }
+      ]
       name "ds_fan_1"
       lookupTable [
         0 0 0
         1.5 1.5 0.01
       ]
-      children [
-        Shape {
-          appearance PBRAppearance { baseColor 1 1 0 }
-          geometry Sphere { radius 0.01 }
-        }
-      ]
     }
     DistanceSensor {
       translation 0 0 -0.15
       rotation 0 1 0 1.5708
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+          }
+          geometry Sphere {
+            radius 0.01
+          }
+        }
+      ]
       name "ds_fan_2"
       lookupTable [
         0 0 0
         1.5 1.5 0.01
       ]
-      children [
-        Shape {
-          appearance PBRAppearance { baseColor 1 1 0 }
-          geometry Sphere { radius 0.01 }
-        }
-      ]
     }
     DistanceSensor {
       translation 0 0 -0.15
       rotation 0 1 0 1.222
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+          }
+          geometry Sphere {
+            radius 0.01
+          }
+        }
+      ]
       name "ds_fan_3"
       lookupTable [
         0 0 0
         1.5 1.5 0.01
       ]
-      children [
-        Shape {
-          appearance PBRAppearance { baseColor 1 1 0 }
-          geometry Sphere { radius 0.01 }
-        }
-      ]
     }
     DistanceSensor {
       translation 0 0 -0.15
       rotation 0 1 0 0.873
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 1 1 0
+          }
+          geometry Sphere {
+            radius 0.01
+          }
+        }
+      ]
       name "ds_fan_4"
       lookupTable [
         0 0 0
         1.5 1.5 0.01
       ]
-      children [
-        Shape {
-          appearance PBRAppearance { baseColor 1 1 0 }
-          geometry Sphere { radius 0.01 }
-        }
-      ]
     }
   ]
 }
-
 DEF GOAL_MARKER Solid {
   translation 3.2 0 0.01
   children [
     Shape {
-      appearance PBRAppearance { baseColor 0 1 0 }
-      geometry Cylinder { radius 0.15 height 0.02 }
+      appearance PBRAppearance {
+        baseColor 0 1 0
+      }
+      geometry Cylinder {
+        height 0.02
+        radius 0.15
+      }
     }
   ]
   name "goal_marker"
 }
-
 DEF STATIC_OBSTACLE Solid {
   translation 1.6 0.4 0.1
   children [
     Shape {
-      appearance PBRAppearance { baseColor 0.6 0.2 0.2 }
-      geometry Box { size 0.3 0.3 0.2 }
+      appearance PBRAppearance {
+        baseColor 0.6 0.2 0.2
+      }
+      geometry Box {
+        size 0.3 0.3 0.2
+      }
     }
   ]
+  name "static_obstacle"
   boundingObject Box {
     size 0.3 0.3 0.2
   }
-  name "static_obstacle"
 }
-
 DEF MOVING_OBSTACLE Robot {
   translation 1.8 -0.6 0.1
   children [
     Shape {
-      appearance PBRAppearance { baseColor 0.2 0.2 0.6 }
-      geometry Box { size 0.25 0.25 0.2 }
+      appearance PBRAppearance {
+        baseColor 0.2 0.2 0.6
+      }
+      geometry Box {
+        size 0.25 0.25 0.2
+      }
     }
   ]
+  name "moving_obstacle"
   boundingObject Box {
     size 0.25 0.25 0.2
   }
-  physics NULL
-  supervisor TRUE
   controller "moving_obstacle"
-  customData ""
-  name "moving_obstacle"
+  customData "phase=3.141;period=4.734"
+  supervisor TRUE
 }
