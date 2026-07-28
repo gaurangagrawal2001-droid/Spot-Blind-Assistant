@@ -66,7 +66,7 @@ STAND_POSE = [-0.1, 0.0, 0.0, 0.1, 0.0, 0.0, -0.1, 0.0, 0.0, 0.1, 0.0, 0.0]
 # swinging forward (with a foot lift on the elbow) vs. pushing back.
 # These exact angles are a starting guess -- tune visually in Webots
 # (see plan verification step 1) before trusting them for training.
-_SWING = 0.25  # how far a leg swings forward/backward while walking
+_SWING = -0.25  # how far a leg swings forward/backward while walking
 _LIFT = -0.15  # how much the elbow bends to lift a foot off the ground
 _PUSH = 0.05  # slight elbow bend on the "stance" (pushing) leg for grip
 
